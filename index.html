@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanor Rentals</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background: linear-gradient(to right, #1f1f1f, #ff0000);
+            color: #0d0d0e;
+        }
+
+        .header {
+            background: #2C2C2C;
+            color: #fff;
+            padding: 20px 0;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            background-color: #f10606;
+            color: #2C2C2C;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            background: url('hero.jpg') no-repeat center center/cover;
+            color: #fff;
+            padding: 100px 20px;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .search-form input,
+        .search-form select,
+        .search-form button {
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .search-form button {
+            background: #ff0000;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Catalog Section */
+        .catalog {
+            padding: 60px 20px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .catalog h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .car-card {
+            background: #fafafa;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .car-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .car-card h3 {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .car-card p {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .car-card button {
+            display: block;
+            width: 100%;
+            background: #ff0000;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .car-card button:hover {
+            background-color: #2C2C2C;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            width: 600px;
+            max-width: 90 %;
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .modal-content p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-content button {
+            display: block;
+            width: 100%;
+            background: #ff0000;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            background-color: #2C2C2C;
+        }
+
+        /* About Section */
+        .about {
+            background: #2C2C2C;
+            color: #fdf9f9;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #2C2C2C;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .footer-socials {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .footer-socials a {
+            color: #fff;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        /* Login and Signup Styles */
+        .modal-login-signup {
+            width: 400px;
+            padding: 30px;
+        }
+
+        .modal-login-signup input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #2b2626;
+        }
+
+        .modal-login-signup button {
+            width: 90%;
+            padding: 10px;
+            background-color: #ff0000;
+            border: none;
+            color: rgb(16, 13, 13);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>Fanor Rentals</h1>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#catalog">Catalog</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html" class="contact-link">Contact Us</a></li>
+                    <li><a href="#" id="login-btn">Login</a></li>
+                    <li><a href="#" id="signup-btn">Signup</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h2>Find Your Perfect Ride</h2>
+        <p>"Explore our diverse fleet of cars, perfectly tailored to match your needs and elevate your journey!"</p>
+        <form id="search-form" class="search-form" onsubmit="event.preventDefault();">
+            <input type="text" placeholder="Search by car name or type..." name="search">
+            <select name="type">
+                <option value="">All Types</option>
+                <option value="suv">SUV</option>
+                <option value="sedan">Sedan</option>
+                <option value="luxury">Luxury</option>
+                <option value="electric">Electric</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalog" class="catalog">
+        <h2>OUR FLEET</h2>
+        <div class="car-grid">
+            <!-- Existing Car Cards -->
+            <div class="car-card">
+                <img src="https://images.prismic.io/ospreyaad/Zk9Khyol0Zci9ZL0_TeslaModel3Performance-blurred.png?auto=format,compress&w=1200&h=800" alt="Tesla Model 3">
+                <h3>Tesla Model 3</h3>
+                <p>Price: $90/day</p>
+                <button onclick="showCarDetails('Tesla Model 3', 'The Tesla Model 3 is a state-of-the-art electric sedan that seamlessly blends performance, innovation, and sustainability. With a range of up to 358 miles on a single charge, it redefines efficiency and offers thrilling acceleration, reaching 0-60 mph in just 3.1 seconds in the Performance model. ', '$90/day', 'Details about Tesla Model 3')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://stimg.cardekho.com/images/carexteriorimages/930x620/BMW/X5-2023/10452/1688992642182/front-left-side-47.jpg" alt="BMW X5">
+                <h3>BMW X5</h3>
+                <p>Price: $120/day</p>
+                <button onclick="showCarDetails('BMW X5', 'The BMW X5 is a sophisticated luxury SUV that blends performance, comfort, and cutting-edge technology. Renowned for its powerful engines and precise handling, it offers an exhilarating driving experience whether on highways or rugged terrains. The interior exudes opulence with high-quality materials, spacious seating, and advanced infotainment features.', '$120/day', 'Details about BMW X5')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://www.carandbike.com/_next/image?url=https%3A%2F%2Fc.ndtvimg.com%2Frange-rover-sport_625x300_1530181391799.jpg&w=3840&q=75" alt="Range Rover">
+                <h3>Range Rover</h3>
+                <p>Price: $130/day</p>
+                <button onclick="showCarDetails('Range Rover', 'The Range Rover is a prestigious luxury SUV that stands out for its exceptional off-road capabilities and sophisticated on-road performance. Known for its iconic design, the Range Rover offers a perfect balance of elegance, power, and versatility. Its powerful engine options deliver a smooth and commanding driving experience, while its refined interior provides an oasis of comfort with high-end materials and advanced technology.', '$130/day', 'Details about Range Rover')">View Details</button>
+            </div>
+            <!-- New Car Cards -->
+            <div class="car-card">
+                <img src="https://www.topgear.com/sites/default/files/cars-car/image/2021/03/audiuk0002282120audi20a420saloon.jpg" alt="Audi A4">
+                <h3>Audi A4</h3>
+                <p>Price: $85/day</p>
+                <button onclick="showCarDetails('Audi A4', 'The Audi A4 is a sleek and stylish compact executive sedan that combines advanced technology, exceptional performance, and refined luxury. Known for its precision engineering, the A4 delivers a dynamic driving experience with its smooth handling, powerful engine options, and cutting-edge all-wheel-drive system. Inside, the cabin is equipped with high-quality materials, a user-friendly infotainment system, and ample space for both driver and passengers', '$85/day', 'Details about Audi A4')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://cdn.jdpower.com/JDPA_2020%20Mercedes-AMG%20C63%20S%20Selenite%20Gray%20Front%20View.jpg" alt="Mercedes-Benz C-Class">
+                <h3>Mercedes-Benz C-Class</h3>
+                <p>Price: $100/day</p>
+                <button onclick="showCarDetails('Mercedes-Benz C-Class', 'The Mercedes-Benz C-Class is a luxury sedan that exemplifies the brands commitment to precision comfort, and performance Combining elegant design with advanced technology the C-Class offers a refined driving experience. ', '$100/day', 'Details about Mercedes-Benz C-Class')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://imgd-ct.aeplcdn.com/664x415/cw/ec/23766/Ford-Mustang-Left-Front-Three-Quarter-74324.jpg?v=201711021421&q=80" alt="Ford Mustang">
+                <h3>Ford Mustang</h3>
+                <p>Price: $110/day</p>
+                <button onclick="showCarDetails('Ford Mustang', 'The Ford Mustang is an iconic sports car known for its powerful performance and aggressive styling. With a bold exterior design and a range of engine options including turbocharged and V8 models it delivers thrilling acceleration and exceptional driving dynamics. The Mustang offers a driver-focused interior with modern technology and comfort features including advanced infotainment systems and customizable options', '$110/day', 'Details about Ford Mustang')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://renty.ae/cdn-cgi/image/format=auto,fit=contain,width=816,height=516,sharpen=0/https://renty.ae/uploads/car/photo/l/silver-grey_chevrolet-camaro-v-rs_2023_5565_main_15a51e4b988418c01018836a39b706f6.jpg" alt="Chevrolet Camaro">
+                <h3>Chevrolet Camaro</h3>
+                <p>Price: $105/day</p>
+                <button onclick="showCarDetails('Chevrolet Camaro', 'The Chevrolet Camaro is a powerful muscle car that combines aggressive styling with thrilling performance. Known for its bold exterior design and wide stance, the Camaro offers a range of engine options including turbocharged, V6, and V8 variants, each delivering exceptional power and acceleration. Inside, the Camaro features a driver-focused cockpit with modern technology and comfort, including an intuitive infotainment system and a customizable interior.', '$105/day', 'Details about Chevrolet Camaro')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://di-honda-enrollment.s3.amazonaws.com/2021/model-pages/accord/hero.jpg" alt="Honda Accord">
+                <h3>Honda Accord</h3>
+                <p>Price: $75/day</p>
+                <button onclick="showCarDetails('Honda Accord', 'The Honda Accord is a reliable and well-rounded sedan, known for its comfort, efficiency, and advanced technology. With a reputation for long-term durability, the Accord features a refined and spacious interior, offering ample room for both passengers and cargo. The vehicle is powered by a range of efficient engines, including a hybrid option, providing a perfect balance of power and fuel economy.', '$75/day', 'Details about Honda Accord')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://www.motortrend.com/files/67044b22780fb00008f3b63c/001-2025-toyota-camry-xle-lead.jpg?w=768&width=768&q=75&format=webp" alt="Toyota Camry">
+                <h3>Toyota Camry</h3>
+                <p>Price: $80/day</p>
+                <button onclick="showCarDetails('Toyota Camry', 'The Toyota Camry is a well-established midsize sedan that is celebrated for its reliability, smooth ride, and impressive fuel efficiency. Known for its long-lasting durability, the Camry offers a comfortable and spacious interior with high-quality materials and modern features. It is equipped with a choice of powertrains, including a hybrid variant, delivering an excellent balance of performance and economy.', '$80/day', 'Details about Toyota Camry')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://vehicle-images.dealerinspire.com/2873-110007342/1N4BL4CV0RN395995/0cfbe0cea150b1e557378d4f9f1679a0.jpg" alt="Nissan Altima">
+                <h3>Nissan Altima</h3>
+                <p>Price: $70/day</p>
+                <button onclick="showCarDetails('Nissan Altima', 'The Nissan Altima is a midsize sedan that stands out for its stylish design, advanced safety features, and engaging driving dynamics. With a sleek and modern exterior, it offers a comfortable and spacious interior equipped with high-quality materials and cutting-edge technology. The Altima is available with either a fuel-efficient 4-cylinder engine or a more powerful V6 option, delivering a smooth and responsive ride.', '$70/day', 'Details about Nissan Altima')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://cdn.jdpower.com/ArticleImages/2019%20Kia%20Optima%2013750_720.jpg" alt="Kia Optima">
+                <h3>Kia Optima</h3>
+                <p>Price: $65/day</p>
+                <button onclick="showCarDetails('Kia Optima', 'The Kia Optima is a sleek midsize sedan that combines style, comfort, and advanced technology. Its bold exterior design features clean lines and a modern aesthetic, while the spacious interior offers a premium feel with high-quality materials and user-friendly technology. The Optima is equipped with a variety of engine options, including a fuel-efficient 4-cylinder engine, offering a balance of power and economy.', '$65/day', 'Details about Kia Optima')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://www.autoblog.com/.image/t_share/MjA5MDg5NjkxNzAyMDc3MDQw/2024-hyundai-sonata-hybrid.jpg" alt="Hyundai Sonata">
+                <h3>Hyundai Sonata</h3>
+                <p>Price: $68/day</p>
+                <button onclick="showCarDetails('Hyundai Sonata', 'The Hyundai Sonata is a stylish and modern midsize sedan that offers a perfect blend of performance comfort and technology. With its sleek exterior design featuring sharp lines and a bold front grille the Sonata stands out on the road.', '$68/day', 'Details about Hyundai Sonata')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://car-images.bauersecure.com/wp-images/152691/49-subaru-outback-review.jpg" alt="Subaru Outback">
+                <h3>Subaru Outback</h3>
+                <p>Price: $90/day</p>
+                <button onclick="showCarDetails('Subaru Outback', 'The Subaru Outback is a versatile and rugged crossover SUV that excels in both on-road comfort and off-road capability. With its elevated ground clearance and standard all-wheel drive, the Outback is designed to handle a variety of terrains and weather conditions, making it a perfect choice for adventurous drivers.', '$90/day', 'Details about Subaru Outback')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://assets.volkswagen.com/is/image/volkswagenag/VW_NGW6_Showroom_GLI_Masthead?Zml0PWNyb3AsMSZmbXQ9cG5nLWFscGhhJndpZD0xNjAwJmhlaT05MDAmYmZjPW9mZiY5YWYy" alt="Volkswagen Jetta">
+                <h3>Volkswagen Jetta</h3>
+                <p>Price: $75/day</p>
+                <button onclick="showCarDetails('Volkswagen Jetta', 'The Volkswagen Jetta is a compact sedan known for its refined design, smooth performance, and excellent fuel efficiency. It offers a comfortable and spacious cabin with high-quality materials and a user-friendly infotainment system, making it an appealing choice for those seeking both practicality and style. ', '$75/day', 'Details about Volkswagen Jetta')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://images.carexpert.com.au/resize/3000/-/app/uploads/2024/01/2024-Mazda-6-G35-GT-SP-review-4.jpg" alt="Mazda 6">
+                <h3>Mazda 6</h3>
+                <p>Price: $85/day</p>
+                <button onclick="showCarDetails('Mazda 6', 
+               'The Mazda 6 is a midsize sedan that stands out for its stylish design engaging driving experience and premium interior. It features a sleek exterior with flowing lines and a sophisticated look that gives it a more upscale appeal. ', '$85/day', 'Details about Mazda 6')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://pictures.dealer.com/m/motorworldchryslercllc/1697/25486cc35fea539bfb0fad10c752b8a8x.jpg" alt="Chrysler 300">
+                <h3>Chrysler 300</h3>
+                <p>Price: $95/day</p>
+                <button onclick="showCarDetails('Chrysler 300', 
+'The Chrysler 300 is a full-size sedan offering a sleek design and powerful performance. It comes with a choice of engines, including a 3.6L V6 and a 5.7L V8 for high-performance driving. The 300 features a refined interior with modern technology, including Uconnect infotainment and available leather upholstery. Advanced safety features, such as blind-spot monitoring and lane-keeping assist, add to its appeal', '$95/day', 'Details about Chrysler 300')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://static.overfuel.com/dealers/trust-auto/image/Used-Dodge-Charger.jpg" alt="Dodge Charger">
+                <h3>Dodge Charger</h3>
+                <p>Price: $110/day</p>
+                <button onclick="showCarDetails('Dodge Charger', 'The **Dodge Charger** is a high-performance muscle sedan with bold styling and powerful engine options. It offers a range of engines, from a 3.6L V6 to a 6.4L V8 and the iconic 707-hp 6.2L supercharged HEMI V8. The Charger combines performance with modern technology, featuring an intuitive Uconnect system and available all-wheel drive. Its aggressive design is complemented by advanced safety features like rearview cameras and adaptive cruise control.', '$110/day', 'Details about Dodge Charger')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://www.usnews.com/object/image/00000190-b819-d3cb-abd6-f99d92560001/01-usnpx-jeepwrangler-angularfront-jmv.JPG?update-time=1721075706144&size=responsive640" alt="Jeep Wrangler">
+                <h3>Jeep Wrangler</h3>
+                <p>Price: $120/day</p>
+                <button onclick="showCarDetails('Jeep Wrangler', 'The **Jeep Wrangler** is an iconic off-road SUV known for its rugged design and exceptional off-road capabilities. It comes with various engine options, including a 3.6L V6 and a 2.0L turbocharged four-cylinder, with an available hybrid model. The Wrangler features removable doors and roof, making it perfect for outdoor adventures. With advanced 4x4 systems and a durable interior, it offers both comfort and performance in tough terrains.', '$120/day', 'Details about Jeep Wrangler')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://www.topgear.com/sites/default/files/cars-car/image/2024/02/pcgb20_0589_fine.jpg" alt="Porsche 911">
+                <h3>Porsche 911</h3>
+                <p>Price: $250/day</p>
+                <button onclick="showCarDetails('Porsche 911', 'The **Porsche 911** is a legendary sports car known for its timeless design and exceptional performance. It offers a range of powerful engines, including turbocharged flat-six options, delivering thrilling speed and handling. The 911 features a luxurious interior with advanced technology, including a responsive infotainment system and premium materials. Its precise handling, rear-engine layout, and iconic silhouette make it a true icon in the automotive world.', '$250/day', 'Details about Porsche 911')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://www.lexusofparramatta.com.au/-/media/lexus/dealers/nsw/parramatta/blog/2022/evolution-of-the-lexus-rx/lexus-rx.png?rev=206158b4a29f4b62a502a5ca025f9f44" alt="Lexus RX">
+                <h3>Lexus RX</h3>
+                <p>Price: $150/day</p>
+                <button onclick="showCarDetails('Lexus RX', 'The **Lexus RX** is a luxury midsize SUV that blends comfort, style, and advanced technology. It offers a range of powertrains, including a 3.5L V6 and a hybrid option, providing a smooth and efficient ride. The RX features a premium interior with high-quality materials, a user-friendly infotainment system, and advanced safety features like adaptive cruise control. Its sleek design and refined driving experience make it a top choice for those seeking a sophisticated and versatile SUV.', '$150/day', 'Details about Lexus RX')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i9GkFjKH5Idg/v2/-1x-1.webp" alt="Tesla Model X">
+                <h3>Tesla Model X</h3>
+                <p>Price: $150/day</p>
+                <button onclick="showCarDetails('Tesla Model X', 'The **Tesla Model X** is a luxury electric SUV known for its impressive performance and futuristic features. It offers powerful dual-motor all-wheel drive and rapid acceleration, with a range of up to 348 miles on a single charge. The Model X is distinguished by its unique falcon-wing doors and spacious, tech-forward interior, including a large touchscreen and advanced autopilot capabilities. With top-tier safety ratings and innovative features, ', '$150/day', 'Details about Tesla Model X')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://www.autocar.co.uk/sites/autocar.co.uk/files/volvo-xc90-001.jpg" alt="Volvo XC90">
+                <h3>Volvo XC90</h3>
+                <p>Price: $140/day</p>
+                <button onclick="showCarDetails('Volvo XC90', 'The **Volvo XC90** is a luxury midsize SUV known for its elegant design and exceptional safety features. It offers a range of powertrains, including a 2.0L turbocharged engine, a hybrid option, and a mild-hybrid variant, ensuring a balance of performance and efficiency. The XC90 features a refined, minimalist interior with high-quality materials, advanced infotainment, and spacious seating for up to seven passengers. With standard safety features like collision avoidance and pilot assist, it is a top choice for families seeking luxury and peace of mind.', '$140/day', 'Details about Volvo XC90')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://www.cnet.com/a/img/resize/b21f155fd825539e4b511d7c8b74b2d8c920ef95/hub/2017/02/14/d19578aa-f71a-466a-b1b3-ba02783fa1d2/2017-land-rover-discovery-29.jpg?auto=webp&width=768" alt="Land Rover Discovery">
+                <h3>Land Rover Discovery</h3>
+                <p>Price: $160/day</p>
+                <button onclick="showCarDetails('Land Rover Discovery', 'The **Land Rover Discovery** is a luxury SUV that combines off-road capability with refined on-road performance. It offers a range of engines, including a turbocharged four-cylinder and a V6, delivering strong power and towing capacity. The Discovery features a spacious and versatile interior with seating for up to seven passengers, along with advanced tech and infotainment options. Known for its exceptional off-road prowess, it also includes advanced driver assistance systems for enhanced safety and comfort on any terrain.', '$160/day', 'Details about Land Rover Discovery')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://hips.hearstapps.com/hmg-prod/images/2025-infiniti-qx60-autograph-awd-107-6706d8b961188.jpg?crop=0.740xw:0.832xh;0.114xw,0.115xh&resize=768:*" alt="Infiniti QX60">
+                <h3>Infiniti QX60</h3>
+                <p>Price: $130/day</p>
+                <button onclick="showCarDetails('Infiniti QX60', 'The **Infiniti QX60** is a luxury midsize SUV that offers a blend of comfort, performance, and technology. Powered by a 3.5L V6 engine, it delivers a smooth and capable driving experience, with a spacious interior that accommodates up to seven passengers. The QX60 features a refined cabin with premium materials, an intuitive infotainment system, and a range of advanced safety features, including forward collision warning and adaptive cruise control. Its stylish design and well-rounded performance make it a great choice for families seeking both luxury and versatility.', '$130/day', 'Details about Infiniti QX60')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://hips.hearstapps.com/hmg-prod/images/2025-acura-mdx-105-6685c529159c2.jpg?crop=0.706xw:0.793xh;0.241xw,0.0852xh&resize=768:*" alt="Acura MDX">
+                <h3>Acura MDX</h3>
+                <p>Price: $125/day</p>
+                <button onclick="showCarDetails('Acura MDX', 'The **Acura MDX** is a luxury midsize SUV that combines performance, comfort, and advanced technology. It is powered by a 3.5L V6 engine, offering a smooth and efficient driving experience, with an available all-wheel-drive option for enhanced handling. The MDX features a spacious interior with seating for up to seven passengers, premium materials, and a user-friendly infotainment system. It also comes with a suite of standard safety features, such as collision mitigation and lane-keeping assist, making it a top choice for families seeking both luxury and practicality.', '$125/day', 'Details about Acura MDX')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://media.ed.edmunds-media.com/buick/enclave/2024/oem/2024_buick_enclave_4dr-suv_avenir_fq_oem_1_1280.jpg" alt="Buick Enclave">
+                <h3>Buick Enclave</h3>
+                <p>Price: $120/day</p>
+                <button onclick="showCarDetails('Buick Enclave', 'The **Buick Enclave** is a midsize luxury SUV known for its spacious interior and smooth ride. Powered by a 3.6L V6 engine, it offers a balance of performance and efficiency, with available all-wheel drive for enhanced traction. The Enclave features a comfortable and upscale cabin with seating for up to seven passengers, along with an intuitive infotainment system and advanced tech features. With standard safety features like automatic emergency braking and lane-keeping assist, it is a well-rounded choice for families seeking comfort and reliability.', '$120/day', 'Details about Buick Enclave')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://bucket.dealervenom.com/2024/01/JU0DWZ1m-2023-chrysler-pacifica-carbuzz-930201-1600.jpg?fm=pjpg&ixlib=php-3.3.1" alt="Chrysler Pacifica">
+                <h3>Chrysler Pacifica</h3>
+                <p>Price: $110/day</p>
+                <button onclick="showCarDetails('Chrysler Pacifica', 'The **Chrysler Pacifica** is a versatile and spacious minivan known for its comfortable ride and family-friendly features. It offers a smooth 3.6L V6 engine, providing a balanced mix of power and efficiency. With a luxurious interior, it includes features like a Uconnect infotainment system and available hybrid powertrain. The Pacifica also boasts advanced safety features, including automatic emergency braking and adaptive cruise control.', '$110/day', 'Details about Chrysler Pacifica')">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="https://garagemmaster.com.br/wp-content/uploads/2024/05/Nova-Picape-Toyota-Rav4-2025-1.webp" alt="Toyota RAV4">
+                <h3>Toyota RAV4</h3>
+                <p>Price: $95/day</p>
+                <button onclick="showCarDetails('Toyota RAV4', 'The **Toyota RAV4** is a compact crossover SUV known for its reliability, fuel efficiency, and versatile design. It offers a range of powertrains, including a fuel-efficient 2.5L four-cylinder engine and a hybrid option for improved fuel economy. The RAV4 features a comfortable and modern interior with intuitive tech, including a touchscreen infotainment system and available all-wheel drive for added versatility. With standard safety features like Toyota Safety Sense, including pre-collision braking and lane departure alert, the RAV4 is a popular choice for families and urban drivers alike.', '$95/day', 'Details about Toyota RAV4')">View Details</button>
+            </div>
+        </div>
+    </section>
+    
+
+  
+
+    <!-- Footer -->
+    <footer>
+        <ul class="footer-socials">
+            
+        </ul>
+        <p>&copy; 2024 Fanor Rentals. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal for Car Details -->
+    <div id="car-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="car-name"></h2>
+            <p id="car-description"></p>
+            <p id="car-price"></p>
+            <button onclick="bookNow()">Book Now</button>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content modal-login-signup">
+            <h2>Login</h2>
+            <input type="text" placeholder="Username">
+            <input type="password" placeholder="Password">
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content modal-login-signup">
+            <h2>Signup</h2>
+            <input type="text" placeholder="Username">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <button onclick="signup()">Signup</button>
+        </div>
+    </div>
+
+    <script>
+        // Show Car Details in Modal
+        function showCarDetails(name, description, price, details) {
+            document.getElementById('car-name').textContent = name;
+            document.getElementById('car-description').textContent = description;
+            document.getElementById('car-price').textContent = price;
+            document.getElementById('car-modal').style.display = 'flex';
+        }
+
+        // Close Car Details Modal
+        function closeModal() {
+            document.getElementById('car-modal').style.display = 'none';
+        }
+
+        // Book Now (Alert Placeholder)
+        function bookNow() {
+            alert("Booking done for one day !");
+        }
+
+        // Open Login Modal
+        document.getElementById('login-btn').onclick = function() {
+            document.getElementById('login-modal').style.display = 'flex';
+        }
+
+        // Open Signup Modal
+        document.getElementById('signup-btn').onclick = function() {
+            document.getElementById('signup-modal').style.display = 'flex';
+        }
+
+        // Close Modals on Click Outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal();
+                document.getElementById('login-modal').style.display = 'none';
+                document.getElementById('signup-modal').style.display = 'none';
+            }
+        }
+
+        // Functions for Login/Signup
+        function login() {
+            alert("Login Successfully Completed  !");
+        }
+
+        function signup() {
+            alert("Signup Successfully Completed !");
+        }
+
+    </script>
+</body>
+</html>

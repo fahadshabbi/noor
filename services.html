@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Our Services | Fanor Rentals</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #da1b1b;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeIn 2s ease-out;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            letter-spacing: 5px;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .services-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .service-box {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 350px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-box h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .service-box p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .service-box img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #ec0f0f;
+            color: rgb(239, 236, 236);
+            text-align: center;
+            padding: 15px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .services-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .service-box {
+                padding: 20px;
+            }
+
+            .service-box h3 {
+                font-size: 1.5rem;
+            }
+
+            .service-box p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Section -->
+<header>
+    <h1>Our Services</h1>
+</header>
+
+<!-- Services Section -->
+<section>
+    <div class="services-content">
+        <!-- Service 1 -->
+        <div class="service-box">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/023/192/562/small_2x/sport-car-running-on-the-road-in-future-city-created-with-generative-ai-free-photo.jpg" alt="Car Rental">
+            <h3>Sports Car</h3>
+            <p>Choose from a wide selection of cars, including economy, luxury, and sports cars. Whether for business or leisure, we have the perfect ride for you!</p>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-box">
+            <img src="https://i.ytimg.com/vi/RtYk-ixyWuM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC8FgcBOQQsVirpa-xLLW7uQqlZ0g" alt="Luxury Cars">
+            <h3>Luxury Cars</h3>
+            <p>Experience the thrill of driving high-end luxury cars like Ferrari, Lamborghini, and more. Make your trip unforgettable with the car of your dreams.</p>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-box">
+            <img src="https://www.topgear.com/sites/default/files/news-listicle/image/2023/10/Best%20family%20cars%20to%20buy%20in%202023.jpg" alt="Family Cars">
+            <h3>Family Cars</h3>
+            <p>We offer spacious and reliable family cars, perfect for road trips and vacations. Comfort and safety are our priorities when traveling with loved ones.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer>
+    <p>&copy; 2024 Fanor Rentals. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
